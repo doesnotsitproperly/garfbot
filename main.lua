@@ -1,0 +1,69 @@
+local discordia = require("discordia")
+local client = discordia.Client()
+
+trigger_words = {
+    "bongo",
+    "cum",
+    "sex"
+}
+
+function trigger_word_in_message(check)
+    for _, word in pairs(trigger_words) do
+        if string.find(check, word) then return true end
+    end
+    return false
+end
+
+function get_table_length(t)
+    local count = 0
+    for _ in pairs(t) do count = count + 1 end
+    return count
+end
+
+client:on("ready", function()
+    print("Logged in as " .. client.user.username)
+end)
+
+client:on("messageCreate", function(message)
+    msg = string.lower(message.content)
+
+    if string.find(msg, "lasagna") then
+        message:addReaction("👀")
+    end
+    
+    if string.find(msg, "monday") then
+        message:addReaction("😡")
+    end
+    
+    if string.sub(msg, 1, string.len("garf add ")) == "garf add " then
+        f = io.open("jokes.txt", "a")
+        io.output(f)
+        joke = string.sub(message.content, 10, string.len(message.content))
+        io.write("\n" .. joke)
+        f:close()
+        message.channel:send("added joke: \"" .. joke .. "\"")
+    
+    elseif string.sub(msg, 1, string.len("garf jokes")) == "garf jokes" then
+        f = io.open("jokes.txt", "r")
+        io.input(f)
+        jokes = {}
+        for joke in io.lines() do table.insert(jokes, joke) end
+        f:close()
+        list = ""
+        for _, joke in pairs(jokes) do list = list .. joke end
+        message.channel:send(list)
+    
+    elseif trigger_word_in_message(msg) then
+        f = io.open("jokes.txt", "r")
+        io.input(f)
+        jokes = {}
+        for joke in io.lines() do table.insert(jokes, joke) end
+        f:close()
+        message.channel:send(jokes[math.random(get_table_length(jokes))])
+    end
+end)
+
+f = io.open("token.txt", "r")
+io.input(f)
+client:run(io.read())
+f:close()
