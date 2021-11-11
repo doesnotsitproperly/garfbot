@@ -1,1 +1,1 @@
-# garfbot
+# GarfBot
