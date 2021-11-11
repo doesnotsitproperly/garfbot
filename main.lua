@@ -72,5 +72,5 @@ end)
 -- Run the bot with token read from "token.txt"
 f = io.open("token.txt", "r")
 io.input(f)
-client:run("Bot" .. io.read())
+client:run("Bot " .. io.read())
 f:close()
