@@ -14,6 +14,7 @@ function trigger_word_in_message(check)
     return false
 end
 
+-- 
 function get_table_length(t)
     local count = 0
     for _ in pairs(t) do count = count + 1 end
@@ -27,14 +28,17 @@ end)
 client:on("messageCreate", function(message)
     msg = string.lower(message.content)
 
+    -- React w/ :eyes: if someone mentions lasagna
     if string.find(msg, "lasagna") then
         message:addReaction("👀")
     end
     
+    -- React w/ :rage: if someone mentions mondays
     if string.find(msg, "monday") then
         message:addReaction("😡")
     end
     
+    -- Add a joke to "jokes.txt"
     if string.sub(msg, 1, string.len("garf add ")) == "garf add " then
         f = io.open("jokes.txt", "a")
         io.output(f)
@@ -43,6 +47,7 @@ client:on("messageCreate", function(message)
         f:close()
         message.channel:send("added joke: \"" .. joke .. "\"")
     
+    -- List all jokes from "jokes.txt"
     elseif string.sub(msg, 1, string.len("garf jokes")) == "garf jokes" then
         f = io.open("jokes.txt", "r")
         io.input(f)
@@ -53,6 +58,7 @@ client:on("messageCreate", function(message)
         for _, joke in pairs(jokes) do list = list .. joke end
         message.channel:send(list)
     
+    -- Say a joke if someone says a trigger word
     elseif trigger_word_in_message(msg) then
         f = io.open("jokes.txt", "r")
         io.input(f)
@@ -63,7 +69,8 @@ client:on("messageCreate", function(message)
     end
 end)
 
+-- Run the bot with token read from "token.txt"
 f = io.open("token.txt", "r")
 io.input(f)
-client:run(io.read())
+client:run("Bot" .. io.read())
 f:close()
