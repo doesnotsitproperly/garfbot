@@ -14,7 +14,6 @@ function trigger_word_in_message(check)
     return false
 end
 
--- 
 function get_table_length(t)
     local count = 0
     for _ in pairs(t) do count = count + 1 end
