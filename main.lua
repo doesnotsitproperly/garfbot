@@ -36,7 +36,6 @@ client:on(
         if string.find(msg, "lasagna") then
             message:addReaction("👀")
         end
-    
         -- React w/ :rage: if someone mentions mondays
         if string.find(msg, "monday") then
         message:addReaction("😡")
@@ -50,7 +49,6 @@ client:on(
             io.write("\n" .. joke)
             f:close()
             message.channel:send("added joke: \"" .. joke .. "\"")
-    
         -- List all jokes from "jokes.txt"
         elseif string.sub(msg, 1, string.len("garf jokes")) == "garf jokes" then
             f = io.open("jokes.txt", "r")
@@ -61,7 +59,6 @@ client:on(
             list = ""
             for _, joke in pairs(jokes) do list = list .. joke end
             message.channel:send(list)
-    
         -- Say a joke if someone says a trigger word
         elseif trigger_word_in_message(msg) then
             f = io.open("jokes.txt", "r")
