@@ -38,9 +38,9 @@ client:on(
         end
         -- React w/ :rage: if someone mentions mondays
         if string.find(msg, "monday") then
-        message:addReaction("😡")
+            message:addReaction("😡")
         end
-    
+
         -- Add a joke to "jokes.txt"
         if string.sub(msg, 1, string.len("garf add ")) == "garf add " then
             f = io.open("jokes.txt", "a")
