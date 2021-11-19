@@ -4,6 +4,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <OutputType>Exe</OutputType>
+        <PublishSingleFile>true</PublishSingleFile>
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
