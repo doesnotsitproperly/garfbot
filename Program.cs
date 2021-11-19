@@ -12,8 +12,22 @@ namespace GarfBot {
         }
 
         static async Task MainAsync() {
+            string tokenFile = Path.Combine(Directory.GetCurrentDirectory(), "token.txt");
+            string jokesFile = Path.Combine(Directory.GetCurrentDirectory(), "jokes.txt");
+
+            if (!File.Exists(tokenFile)) {
+                Console.WriteLine("Could not find token file, exiting...");
+                Environment.Exit(-1);
+            }
+            if (!File.Exists(jokesFile)) {
+                Console.WriteLine("Jokes file not found; a new one will be created...");
+                using (StreamWriter sw = File.AppendText(jokesFile)) {
+                    await sw.WriteAsync("");
+                }
+            }
+
             DiscordClient discord = new DiscordClient(new DiscordConfiguration() {
-                Token = await File.ReadAllTextAsync(Path.Combine( Directory.GetCurrentDirectory(), "token.txt" )),
+                Token = await File.ReadAllTextAsync(tokenFile),
                 TokenType = TokenType.Bot
             });
 
@@ -42,9 +56,7 @@ namespace GarfBot {
                 // Add a joke to "jokes.txt"
                 if (msg.StartsWith("garf add ")) {
                     string joke = dEvent.Message.Content.Substring(9);
-
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "jokes.txt");
-                    using (StreamWriter sw = File.AppendText(filePath)) {
+                    using (StreamWriter sw = File.AppendText(jokesFile)) {
                         await sw.WriteAsync("\n" + joke);
                     }
 
@@ -54,9 +66,7 @@ namespace GarfBot {
                 }
                 // List all jokes from "jokes.txt"
                 else if (msg.StartsWith("garf jokes")) {
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "jokes.txt");
-                    string[] fileContents = await File.ReadAllLinesAsync(filePath);
-
+                    string[] fileContents = await File.ReadAllLinesAsync(jokesFile);
                     string jokes = "";
                     for (int i = 0; i < fileContents.Length; i++) {
                         jokes += i.ToString() + " " + fileContents[i] + "\n";
@@ -68,9 +78,7 @@ namespace GarfBot {
                 }
                 // Say a joke if someone says a trigger word
                 else if (triggerWords.Any(word => msg.Contains(word))) {
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "jokes.txt");
-                    string[] jokes = await File.ReadAllLinesAsync(filePath);
-
+                    string[] jokes = await File.ReadAllLinesAsync(jokesFile);
                     DiscordMessage discordMessage = await new DiscordMessageBuilder()
                         .WithContent(jokes[new Random().Next(0, jokes.Length)])
                         .SendAsync(dEvent.Channel);
