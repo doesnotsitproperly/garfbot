@@ -25,7 +25,7 @@ namespace GarfBot {
                 "sex"
             };
 
-            // discordClient: DSharpPlus.DiscordClient, event: DSharpPlus.EventArgs.MessageCreateEventArgs
+            // dClient: DSharpPlus.DiscordClient, dEvent: DSharpPlus.EventArgs.MessageCreateEventArgs
             discord.MessageCreated += async (dClient, dEvent) => {
                 string msg = dEvent.Message.Content.ToLower();
 
