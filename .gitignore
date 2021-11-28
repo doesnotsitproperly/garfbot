@@ -1,0 +1,5 @@
+*
+!.gitignore
+!CommandModule.cs
+!GarfBot.csproj
+!Program.cs
