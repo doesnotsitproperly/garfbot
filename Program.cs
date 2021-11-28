@@ -53,6 +53,21 @@ class Program {
                 await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":rage:"));
             }
 
+            // Amogus
+            if (msg.Contains("among us") || msg.Contains("amogus") || msg.Contains("sus")) {
+                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_a:"));
+                await Task.Delay(500);
+                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_m:"));
+                await Task.Delay(500);
+                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_o:"));
+                await Task.Delay(500);
+                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_g:"));
+                await Task.Delay(500);
+                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_u:"));
+                await Task.Delay(500);
+                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_s:"));
+            }
+
             // Say a joke if someone says a trigger word
             if (triggerWords.Any(word => msg.Contains(word))) {
                 string[] jokes = await File.ReadAllLinesAsync(jokesFile);
