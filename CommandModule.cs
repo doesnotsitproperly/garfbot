@@ -1,4 +1,5 @@
 using DSharpPlus.CommandsNext.Attributes;
+using System.Diagnostics;
 
 public class CommandModule : BaseCommandModule {
     string jokesFile = Path.Combine(Directory.GetCurrentDirectory(), "jokes.txt");
@@ -12,7 +13,7 @@ public class CommandModule : BaseCommandModule {
         await ctx.RespondAsync("added joke: " + "\"" + joke + "\"");
     }
 
-    // Remove a joke to "jokes.txt"
+    // Remove a joke from "jokes.txt"
     [Command("remove")]
     public async Task RemoveCommand(CommandContext ctx, int joke) {
         await ctx.RespondAsync(@"not yet implemented :\");
@@ -65,5 +66,40 @@ public class CommandModule : BaseCommandModule {
         }
 
         await ctx.RespondAsync(finalMessage);
+    }
+
+    // Temporary join + play command
+    [Command("play")]
+    public async Task PlayCommand(CommandContext ctx, string f) {
+        VoiceNextExtension voiceNext = ctx.Client.GetVoiceNext();
+
+        if (ctx.Member.VoiceState.Channel != null) {
+            DiscordChannel channel = ctx.Member.VoiceState.Channel;
+
+            string sourceFile = Path.Combine(Directory.GetCurrentDirectory(), f);
+            if (File.Exists(sourceFile)) {
+                if (voiceNext.GetConnection(ctx.Guild) != null) {
+                    voiceNext.GetConnection(ctx.Guild).Disconnect();
+                }
+                VoiceNextConnection connection = await channel.ConnectAsync();
+            
+                VoiceTransmitSink transmit = connection.GetTransmitSink();
+
+                using (FileStream stream = File.Open(sourceFile, FileMode.Open)) {
+                    await stream.CopyToAsync(transmit);
+                }
+            }
+        }
+    }
+
+    // Temporary leave command
+    [Command("leave")]
+    public async Task LeaveCommand(CommandContext ctx) {
+        VoiceNextExtension voiceNext = ctx.Client.GetVoiceNext();
+        VoiceNextConnection connection = voiceNext.GetConnection(ctx.Guild);
+        connection.Disconnect();
+
+        // Stop an annoying warning that this method doesn't use "async"
+        await File.ReadAllTextAsync(jokesFile);
     }
 }

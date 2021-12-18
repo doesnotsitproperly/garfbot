@@ -1,7 +1,7 @@
 ﻿global using DSharpPlus;
 global using DSharpPlus.CommandsNext;
-
-using DSharpPlus.Entities;
+global using DSharpPlus.Entities;
+global using DSharpPlus.VoiceNext;
 
 class Program {
     static void Main() {
@@ -9,8 +9,10 @@ class Program {
     }
 
     static async Task MainAsync() {
-        string tokenFile = Path.Combine(Directory.GetCurrentDirectory(), "token.txt");
-        string jokesFile = Path.Combine(Directory.GetCurrentDirectory(), "jokes.txt");
+        string currentDir = Directory.GetCurrentDirectory();
+        string tokenFile = Path.Combine(currentDir, "token.txt");
+        string jokesFile = Path.Combine(currentDir, "jokes.txt");
+        string triggerWordsFile = Path.Combine(currentDir, "trigger_words.txt");
 
         if (!File.Exists(tokenFile)) {
             Console.WriteLine("Could not find token file, exiting...");
@@ -27,18 +29,13 @@ class Program {
             Token = await File.ReadAllTextAsync(tokenFile),
             TokenType = TokenType.Bot
         });
+        discord.UseVoiceNext();
         CommandsNextExtension commands = discord.UseCommandsNext(new CommandsNextConfiguration() {
             StringPrefixes = new string[] { "garf", "garf " }
         });
         commands.RegisterCommands<CommandModule>();
 
         Console.WriteLine("< GARFBOT ACTIVATED >");
-
-        List<string> triggerWords = new List<string> {
-            "bongo",
-            "cum",
-            "sex"
-        };
 
         discord.MessageCreated += async (dClient, dEvent) => {
             string msg = dEvent.Message.Content.ToLower();
@@ -54,7 +51,7 @@ class Program {
             }
 
             // Amogus
-            if (msg.Contains("among us") || msg.Contains("amogus") || msg.Contains("sus")) {
+            /* if (msg.Contains("among us") || msg.Contains("amogus")) {
                 await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_a:"));
                 await Task.Delay(500);
                 await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_m:"));
@@ -66,10 +63,11 @@ class Program {
                 await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_u:"));
                 await Task.Delay(500);
                 await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_s:"));
-            }
+            } */
 
             // Say a joke if someone says a trigger word
-            if (triggerWords.Any(word => msg.Contains(word))) {
+            string[] triggerWords = await File.ReadAllLinesAsync(triggerWordsFile);
+            if (triggerWords.Any(msg.Contains)) {
                 string[] jokes = await File.ReadAllLinesAsync(jokesFile);
                 DiscordMessage discordMessage = await new DiscordMessageBuilder()
                     .WithContent(jokes[new Random().Next(0, jokes.Length)])
