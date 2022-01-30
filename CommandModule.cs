@@ -20,13 +20,13 @@ public class CommandModule : BaseCommandModule {
     [Command("add")]
     public async Task AddCommand(CommandContext ctx, string joke) {
         JsonArray jokesArray = new JsonArray();
-        foreach (string j in data.jokes.ToArray()) {
+        foreach (string j in data.jokes) {
             jokesArray.Add(j);
         }
         jokesArray.Add(joke);
 
         JsonArray triggerWordsArray = new JsonArray();
-        foreach (string w in data.triggerWords.ToArray()) {
+        foreach (string w in data.triggerWords) {
             triggerWordsArray.Add(w);
         }
 
@@ -39,7 +39,7 @@ public class CommandModule : BaseCommandModule {
             await sw.WriteAsync(jsonString);
         }
 
-        data.jokes.Add(joke);
+        data = new GarfData();
     
         await ctx.RespondAsync($"added joke: \"{joke}\"");
     }
@@ -48,13 +48,13 @@ public class CommandModule : BaseCommandModule {
     [Command("remove")]
     public async Task RemoveCommand(CommandContext ctx, int joke) {
         JsonArray jokesArray = new JsonArray();
-        foreach (string j in data.jokes.ToArray()) {
+        foreach (string j in data.jokes) {
             jokesArray.Add(j);
         }
-        jokesArray.Remove(data.jokes[joke]);
+        jokesArray.RemoveAt(joke);
 
         JsonArray triggerWordsArray = new JsonArray();
-        foreach (string w in data.triggerWords.ToArray()) {
+        foreach (string w in data.triggerWords) {
             triggerWordsArray.Add(w);
         }
 
@@ -67,9 +67,9 @@ public class CommandModule : BaseCommandModule {
             await sw.WriteAsync(jsonString);
         }
 
-        data.jokes.Remove(data.jokes[joke]);
+        data = new GarfData();
     
-        await ctx.RespondAsync($"remove joke \"{joke}\"");
+        await ctx.RespondAsync($"removed joke {joke}");
     }
 
     // List all jokes from GarfData
@@ -77,7 +77,7 @@ public class CommandModule : BaseCommandModule {
     public async Task JokesCommand(CommandContext ctx) {
         string jokes = "";
         for (int i = 0; i < data.jokes.Count; i++) {
-            jokes += $"{i}\t{data.jokes[i]}\n";
+            jokes += $"{i} {data.jokes[i]}\n";
         }
         await ctx.RespondAsync(jokes);
     }

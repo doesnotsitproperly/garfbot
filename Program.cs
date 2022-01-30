@@ -36,9 +36,6 @@ public class Program {
             }
         }
 
-        // Init GarfData
-        GarfData data = new GarfData();
-
         // Get token from TOKEN file
         string token;
         using (StreamReader sr = new StreamReader(tokenFile)) {
@@ -71,6 +68,7 @@ public class Program {
             }
 
             // Say a joke if someone says a trigger word
+            GarfData data = new GarfData();
             if (data.triggerWords.Any(msg.Contains)) {
                 DiscordMessage discordMessage = await new DiscordMessageBuilder()
                     .WithContent(data.jokes[new Random().Next(0, data.jokes.Count)])
