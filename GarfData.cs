@@ -10,7 +10,7 @@ public class GarfData {
         string jsonText = File.ReadAllText(
             Path.Combine(
                 Directory.GetCurrentDirectory(),
-                "Test.json"
+                "GarfData.json"
             )
         );
         JsonNode jsonNode = JsonNode.Parse(jsonText);
