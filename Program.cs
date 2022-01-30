@@ -1,32 +1,53 @@
-﻿global using DSharpPlus;
-global using DSharpPlus.CommandsNext;
-global using DSharpPlus.Entities;
-global using DSharpPlus.VoiceNext;
+﻿using DSharpPlus;
+using DSharpPlus.CommandsNext;
+using DSharpPlus.Entities;
+using DSharpPlus.VoiceNext;
+using System;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 
-class Program {
+public class Program {
     static void Main() {
         MainAsync().GetAwaiter().GetResult();
     }
 
     static async Task MainAsync() {
         string currentDir = Directory.GetCurrentDirectory();
-        string tokenFile = Path.Combine(currentDir, "token.txt");
-        string jokesFile = Path.Combine(currentDir, "jokes.txt");
-        string triggerWordsFile = Path.Combine(currentDir, "trigger_words.txt");
+        string garfDataFile = Path.Combine(currentDir, "GarfData.json");
+        string tokenFile = Path.Combine(currentDir, "TOKEN");
 
+        // Check if files exist
         if (!File.Exists(tokenFile)) {
-            Console.WriteLine("Could not find token file, exiting...");
+            Console.WriteLine("TOKEN file not found, exiting...");
             Environment.Exit(-1);
         }
-        if (!File.Exists(jokesFile)) {
-            Console.WriteLine("Jokes file not found; a new one will be created...");
-            using (StreamWriter sw = File.AppendText(jokesFile)) {
-                await sw.WriteAsync("");
+        if (!File.Exists(garfDataFile)) {
+            Console.WriteLine("GarfData.json not found; a new one will be created...");
+            JsonObject jsonObject = new JsonObject {
+                ["jokes"] = new JsonArray(),
+                ["triggerWords"] = new JsonArray()
+            };
+            string jsonString = jsonObject.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
+            using (StreamWriter sw = new StreamWriter(garfDataFile)) {
+                await sw.WriteAsync(jsonString);
             }
         }
 
+        // Init GarfData
+        GarfData data = new GarfData();
+
+        // Get token from TOKEN file
+        string token;
+        using (StreamReader sr = new StreamReader(tokenFile)) {
+            token = await sr.ReadLineAsync();
+        }
+
+        // Init Discord stuff
         DiscordClient discord = new DiscordClient(new DiscordConfiguration() {
-            Token = await File.ReadAllTextAsync(tokenFile),
+            Token = token,
             TokenType = TokenType.Bot
         });
         discord.UseVoiceNext();
@@ -34,7 +55,6 @@ class Program {
             StringPrefixes = new string[] { "garf", "garf " }
         });
         commands.RegisterCommands<CommandModule>();
-
         Console.WriteLine("< GARFBOT ACTIVATED >");
 
         discord.MessageCreated += async (dClient, dEvent) => {
@@ -50,27 +70,10 @@ class Program {
                 await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":rage:"));
             }
 
-            // Amogus
-            /* if (msg.Contains("among us") || msg.Contains("amogus")) {
-                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_a:"));
-                await Task.Delay(500);
-                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_m:"));
-                await Task.Delay(500);
-                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_o:"));
-                await Task.Delay(500);
-                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_g:"));
-                await Task.Delay(500);
-                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_u:"));
-                await Task.Delay(500);
-                await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":regional_indicator_s:"));
-            } */
-
             // Say a joke if someone says a trigger word
-            string[] triggerWords = await File.ReadAllLinesAsync(triggerWordsFile);
-            if (triggerWords.Any(msg.Contains)) {
-                string[] jokes = await File.ReadAllLinesAsync(jokesFile);
+            if (data.triggerWords.Any(msg.Contains)) {
                 DiscordMessage discordMessage = await new DiscordMessageBuilder()
-                    .WithContent(jokes[new Random().Next(0, jokes.Length)])
+                    .WithContent(data.jokes[new Random().Next(0, data.jokes.Count)])
                     .SendAsync(dEvent.Channel);
             }
         };

@@ -1,5 +1,5 @@
-*
-!.gitignore
-!CommandModule.cs
-!GarfBot.csproj
-!Program.cs
+.vscode/
+bin/
+download/*
+obj/
+TOKEN

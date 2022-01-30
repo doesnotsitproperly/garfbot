@@ -1,52 +1,106 @@
+using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.Entities;
+using DSharpPlus.VoiceNext;
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 
 public class CommandModule : BaseCommandModule {
-    string jokesFile = Path.Combine(Directory.GetCurrentDirectory(), "jokes.txt");
-    
-    // Add a joke to "jokes.txt"
+    string currentDir = Directory.GetCurrentDirectory();
+    string garfDataFile = Path.Combine(Directory.GetCurrentDirectory(), "GarfData.json");
+
+    // Init GarfData
+    GarfData data = new GarfData();
+
+    // Add a joke to GarfData
     [Command("add")]
     public async Task AddCommand(CommandContext ctx, string joke) {
-        using (StreamWriter sw = File.AppendText(jokesFile)) {
-            await sw.WriteAsync("\n" + joke);
+        JsonArray jokesArray = new JsonArray();
+        foreach (string j in data.jokes.ToArray()) {
+            jokesArray.Add(j);
         }
-        await ctx.RespondAsync("added joke: " + "\"" + joke + "\"");
+        jokesArray.Add(joke);
+
+        JsonArray triggerWordsArray = new JsonArray();
+        foreach (string w in data.triggerWords.ToArray()) {
+            triggerWordsArray.Add(w);
+        }
+
+        JsonObject jsonObject = new JsonObject {
+            ["jokes"] = jokesArray,
+            ["triggerWords"] = triggerWordsArray
+        };
+        string jsonString = jsonObject.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
+        using (StreamWriter sw = new StreamWriter(garfDataFile)) {
+            await sw.WriteAsync(jsonString);
+        }
+
+        data.jokes.Add(joke);
+    
+        await ctx.RespondAsync($"added joke: \"{joke}\"");
     }
 
-    // Remove a joke from "jokes.txt"
+    // Remove a joke from GarfData
     [Command("remove")]
     public async Task RemoveCommand(CommandContext ctx, int joke) {
-        await ctx.RespondAsync(@"not yet implemented :\");
+        JsonArray jokesArray = new JsonArray();
+        foreach (string j in data.jokes.ToArray()) {
+            jokesArray.Add(j);
+        }
+        jokesArray.Remove(data.jokes[joke]);
+
+        JsonArray triggerWordsArray = new JsonArray();
+        foreach (string w in data.triggerWords.ToArray()) {
+            triggerWordsArray.Add(w);
+        }
+
+        JsonObject jsonObject = new JsonObject {
+            ["jokes"] = jokesArray,
+            ["triggerWords"] = triggerWordsArray
+        };
+        string jsonString = jsonObject.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
+        using (StreamWriter sw = new StreamWriter(garfDataFile)) {
+            await sw.WriteAsync(jsonString);
+        }
+
+        data.jokes.Remove(data.jokes[joke]);
+    
+        await ctx.RespondAsync($"remove joke \"{joke}\"");
     }
 
-    // List all jokes from "jokes.txt"
+    // List all jokes from GarfData
     [Command("jokes")]
     public async Task JokesCommand(CommandContext ctx) {
-        string[] fileContents = await File.ReadAllLinesAsync(jokesFile);
         string jokes = "";
-        for (int i = 0; i < fileContents.Length; i++) {
-            jokes += i.ToString() + " " + fileContents[i] + "\n";
+        for (int i = 0; i < data.jokes.Count; i++) {
+            jokes += $"{i}\t{data.jokes[i]}\n";
         }
         await ctx.RespondAsync(jokes);
+    }
+
+    //
+    // Dice-rolling commands
+    //
+
+    private int GetInt(string s) {
+        string newString = "";
+        foreach (char c in s) {
+            if (Char.IsNumber(c)) {
+                newString += c;
+            }
+        }
+        return Int32.Parse(newString);
     }
 
     // Roll some dice
     [Command("roll")]
     public async Task RollCommand(CommandContext ctx, string arg1, string arg2) {
-        string strAmount = "";
-        foreach (char character in arg1) {
-            if (Char.IsNumber(character)) {
-                strAmount += character;
-            }
-        }
-        int amount = Int32.Parse(strAmount);
-        string strDice = "";
-        foreach (char character in arg2) {
-            if (Char.IsNumber(character)) {
-                strDice += character;
-            }
-        }
-        int dice = Int32.Parse(strDice);
+        int amount = GetInt(arg1);
+        int dice = GetInt(arg2);
 
         int finalAmount = 0;
         string finalMessage = "you rolled: ";
@@ -58,41 +112,88 @@ public class CommandModule : BaseCommandModule {
         for (int i = 2; i <= amount; i++) {
             int roll = new Random().Next(1, dice + 1);
             finalAmount += roll;
-            finalMessage += " + " + roll.ToString();
+            finalMessage += $" + {roll}";
         }
 
         if (amount > 1) {
-            finalMessage += " = " + finalAmount.ToString();
+            finalMessage += $" = {finalAmount}";
         }
 
         await ctx.RespondAsync(finalMessage);
     }
 
-    // Temporary join + play command
-    [Command("play")]
-    public async Task PlayCommand(CommandContext ctx, string f) {
+    //
+    // VoiceNext Commands
+    //
+
+    private bool DownloadAudio(string link) {
+        Process youTube = new Process() {
+            StartInfo = new ProcessStartInfo {
+                FileName = "youtube-dl",
+                Arguments = $"--no-playlist -f bestaudio/best -o ''download/download.%(ext)s'' {link}",
+                UseShellExecute = false
+            }
+        };
+        
+        if (youTube.Start()) {
+            youTube.WaitForExitAsync();
+            youTube.Dispose();
+            return true;
+        } else {
+            youTube.Dispose();
+            return false;
+        }
+    }
+
+    private Stream ConvertAudio(string filePath) {
+        Process ffmpeg = new Process() {
+            StartInfo = new ProcessStartInfo {
+                FileName = "ffmpeg",
+                Arguments = $"-i \"{filePath}\" -ac 2 -f wav -ar 48000 -y pipe:1",
+                RedirectStandardOutput = true,
+                UseShellExecute = false
+            }
+        };
+        ffmpeg.Start();
+        return ffmpeg.StandardOutput.BaseStream;
+    }
+
+    [Command("join")]
+    public async Task JoinCommand(CommandContext ctx) {
         VoiceNextExtension voiceNext = ctx.Client.GetVoiceNext();
 
         if (ctx.Member.VoiceState.Channel != null) {
             DiscordChannel channel = ctx.Member.VoiceState.Channel;
 
-            string sourceFile = Path.Combine(Directory.GetCurrentDirectory(), f);
-            if (File.Exists(sourceFile)) {
-                if (voiceNext.GetConnection(ctx.Guild) != null) {
-                    voiceNext.GetConnection(ctx.Guild).Disconnect();
-                }
-                VoiceNextConnection connection = await channel.ConnectAsync();
-            
-                VoiceTransmitSink transmit = connection.GetTransmitSink();
-
-                using (FileStream stream = File.Open(sourceFile, FileMode.Open)) {
-                    await stream.CopyToAsync(transmit);
-                }
+            if (voiceNext.GetConnection(ctx.Guild) != null) {
+                voiceNext.GetConnection(ctx.Guild).Disconnect();
             }
+
+            // string[] downloadFiles = Directory.GetFiles(Path.Combine(currentDir, "download"));
+            // foreach (string f in downloadFiles) {
+            //     File.Delete(f);
+            // }
+
+            VoiceNextConnection connection = await channel.ConnectAsync();
         }
     }
 
-    // Temporary leave command
+    [Command("play")]
+    public async Task PlayCommand(CommandContext ctx, string link) {
+        VoiceNextExtension voiceNext = ctx.Client.GetVoiceNext();
+        VoiceNextConnection connection = voiceNext.GetConnection(ctx.Guild);
+        VoiceTransmitSink transmit = connection.GetTransmitSink();
+
+        if (DownloadAudio(link)) {
+            string downloadFile = Directory.GetFiles(Path.Combine(currentDir, "download"))[0];
+            using (Stream pcm = ConvertAudio(downloadFile)) {
+                await pcm.CopyToAsync(transmit);
+            }
+        } else {
+            await ctx.RespondAsync("failed to download");
+        }
+    }
+
     [Command("leave")]
     public async Task LeaveCommand(CommandContext ctx) {
         VoiceNextExtension voiceNext = ctx.Client.GetVoiceNext();
@@ -100,6 +201,6 @@ public class CommandModule : BaseCommandModule {
         connection.Disconnect();
 
         // Stop an annoying warning that this method doesn't use "async"
-        await File.ReadAllTextAsync(jokesFile);
+        await File.ReadAllTextAsync(garfDataFile);
     }
 }
