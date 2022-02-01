@@ -58,6 +58,11 @@ public class Program {
         discord.MessageCreated += async (dClient, dEvent) => {
             string msg = dEvent.Message.Content.ToLower();
 
+            // Don't do anything if the message author is GarfBot
+            if (dEvent.Author.Id == dClient.CurrentUser.Id) {
+                return;
+            }
+
             // React w/ :eyes: if someone mentions lasagna
             if (msg.Contains("lasagna")) {
                 await dEvent.Message.CreateReactionAsync(DiscordEmoji.FromName(dClient, ":eyes:"));
