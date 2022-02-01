@@ -75,10 +75,11 @@ public class CommandModule : BaseCommandModule {
     // List all jokes from GarfData
     [Command("jokes")]
     public async Task JokesCommand(CommandContext ctx) {
-        string jokes = "";
+        string jokes = "```\n";
         for (int i = 0; i < data.jokes.Count; i++) {
             jokes += $"{i} {data.jokes[i]}\n";
         }
+        jokes += "```";
         await ctx.RespondAsync(jokes);
     }
 
@@ -130,7 +131,7 @@ public class CommandModule : BaseCommandModule {
         Process youTube = new Process() {
             StartInfo = new ProcessStartInfo {
                 FileName = "youtube-dl",
-                Arguments = $"--no-playlist -f bestaudio/best -o ''download/download.%(ext)s'' {link}",
+                Arguments = $"--no-playlist -f bestaudio/best -o ''Download/Download.%(ext)s'' {link}",
                 UseShellExecute = false
             }
         };
@@ -169,7 +170,7 @@ public class CommandModule : BaseCommandModule {
                 voiceNext.GetConnection(ctx.Guild).Disconnect();
             }
 
-            // string[] downloadFiles = Directory.GetFiles(Path.Combine(currentDir, "download"));
+            // string[] downloadFiles = Directory.GetFiles(Path.Combine(currentDir, "Download"));
             // foreach (string f in downloadFiles) {
             //     File.Delete(f);
             // }
@@ -185,7 +186,7 @@ public class CommandModule : BaseCommandModule {
         VoiceTransmitSink transmit = connection.GetTransmitSink();
 
         if (DownloadAudio(link)) {
-            string downloadFile = Directory.GetFiles(Path.Combine(currentDir, "download"))[0];
+            string downloadFile = Directory.GetFiles(Path.Combine(currentDir, "Download"))[0];
             using (Stream pcm = ConvertAudio(downloadFile)) {
                 await pcm.CopyToAsync(transmit);
             }

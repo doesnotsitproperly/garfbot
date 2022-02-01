@@ -1,5 +1,7 @@
 .vscode/
 bin/
-download/*
+Cah/CardsInPlay.json
+Cah/Players.json
+Download/*
 obj/
 TOKEN

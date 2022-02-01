@@ -52,6 +52,7 @@ public class Program {
             StringPrefixes = new string[] { "garf", "garf " }
         });
         commands.RegisterCommands<CommandModule>();
+        commands.RegisterCommands<CahCommandModule>();
         Console.WriteLine("< GARFBOT ACTIVATED >");
 
         discord.MessageCreated += async (dClient, dEvent) => {
