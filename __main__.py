@@ -4,6 +4,7 @@ import json, os, sys
 from garf_data import GarfData
 from nextcord.ext import commands
 from util import get_int, get_range, random_number
+from youtube_dl import YoutubeDL
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 garf_data_file = os.path.join(current_dir, "garf_data.json")
@@ -14,8 +15,14 @@ if not os.path.exists(token_file):
     print("TOKEN file was not found, exiting...")
     sys.exit()
 elif not os.path.exists(garf_data_file):
-    print("garf_data.json file was not found, exiting...")
-    sys.exit()
+    print("garf_data.json file was not found, a new one will be created...")
+
+    json_dict = {
+        "jokes": [],
+        "triggerWords": []
+    }
+    with open(garf_data_file, "w") as f:
+        f.write(json.dumps(json_dict, indent = 4) + "\n")
 
 bot = commands.Bot(command_prefix = "garf ")
 data = GarfData()
@@ -80,7 +87,7 @@ async def remove(ctx: commands.context.Context, joke: str):
 
     data = GarfData()
 
-    await ctx.reply(f"remove joke \"{joke}\"")
+    await ctx.reply(f"removed joke \"{joke}\"")
 
 # List all jokes from garf_data
 @bot.command()
@@ -116,6 +123,36 @@ async def roll(ctx: commands.context.Context, arg_1: str, arg_2: str):
         final_message += f" = {final_amount}"
 
     await ctx.reply(final_message)
+
+# Join voice
+@bot.command()
+async def join(ctx: commands.context.Context):
+    channel = ctx.author.voice.channel
+
+    if channel != None:
+        if ctx.voice_client != None:
+            await ctx.voice_client.move_to(channel)
+        else:
+            await channel.connect()
+
+# Leave voice
+@bot.command()
+async def leave(ctx: commands.context.Context):
+    if ctx.voice_client != None:
+        await ctx.voice_client.disconnect()
+
+# Play audio from a YouTube link
+async def play(ctx: commands.context.Context, link: str):
+    # if ctx.voice_client == None:
+    #     await ctx.reply("i'm not in a voice channel!")
+    #     return
+
+    # youtube_dl_options = {
+    #     "format": "bestaudio/best",
+    #     "outtmpl": "download"
+    # }
+
+    await ctx.reply("not yet implemented :(")
 
 with open("TOKEN", "r") as f:
     bot.run(f.readline())
