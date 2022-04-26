@@ -1,7 +1,2 @@
-.vscode/
-bin/
-Cah/CardsInPlay.json
-Cah/Players.json
-Download/*
-obj/
+__pycache__/
 TOKEN
