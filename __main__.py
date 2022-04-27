@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-import json, os, sys
+import json, os, nextcord, sys
 from garf_data import GarfData
 from nextcord.ext import commands
+from nextcord.ext.commands.context import Context
 from util import get_int, get_range, random_number
 from youtube_dl import YoutubeDL
 
@@ -18,6 +19,7 @@ elif not os.path.exists(garf_data_file):
     print("garf_data.json file was not found, a new one will be created...")
 
     json_dict = {
+        "pathToFfmpeg": "",
         "jokes": [],
         "triggerWords": []
     }
@@ -32,7 +34,7 @@ async def on_ready():
     print("< GARFBOT ACTIVATED >")
 
 @bot.event
-async def on_message(ctx: commands.context.Context):
+async def on_message(ctx: Context):
     msg = ctx.content.lower()
 
     if ctx.author.id == bot.user.id:
@@ -57,7 +59,7 @@ async def on_message(ctx: commands.context.Context):
 
 # Add a joke to garf_data
 @bot.command()
-async def add(ctx: commands.context.Context, joke: str):
+async def add(ctx: Context, joke: str):
     data = GarfData()
     data.jokes.append(joke)
 
@@ -74,7 +76,7 @@ async def add(ctx: commands.context.Context, joke: str):
 
 # Remove a joke from garf_data
 @bot.command()
-async def remove(ctx: commands.context.Context, joke: str):
+async def remove(ctx: Context, joke: str):
     data = GarfData()
     data.jokes.remove(joke)
 
@@ -91,7 +93,7 @@ async def remove(ctx: commands.context.Context, joke: str):
 
 # List all jokes from garf_data
 @bot.command()
-async def jokes(ctx: commands.context.Context):
+async def jokes(ctx: Context):
     data = GarfData()
 
     jokes = "```\n"
@@ -103,7 +105,7 @@ async def jokes(ctx: commands.context.Context):
 
 # Roll some dice
 @bot.command()
-async def roll(ctx: commands.context.Context, arg_1: str, arg_2: str):
+async def roll(ctx: Context, arg_1: str, arg_2: str):
     amount = get_int(arg_1)
     dice = get_int(arg_2)
 
@@ -126,7 +128,7 @@ async def roll(ctx: commands.context.Context, arg_1: str, arg_2: str):
 
 # Join voice
 @bot.command()
-async def join(ctx: commands.context.Context):
+async def join(ctx: Context):
     channel = ctx.author.voice.channel
 
     if channel != None:
@@ -137,22 +139,33 @@ async def join(ctx: commands.context.Context):
 
 # Leave voice
 @bot.command()
-async def leave(ctx: commands.context.Context):
+async def leave(ctx: Context):
     if ctx.voice_client != None:
         await ctx.voice_client.disconnect()
 
 # Play audio from a YouTube link
-async def play(ctx: commands.context.Context, link: str):
-    # if ctx.voice_client == None:
-    #     await ctx.reply("i'm not in a voice channel!")
-    #     return
+@bot.command()
+async def play(ctx: Context, link: str):
+    if ctx.voice_client == None:
+        await ctx.reply("i'm not in a voice channel!")
+        return
 
-    # youtube_dl_options = {
-    #     "format": "bestaudio/best",
-    #     "outtmpl": "download"
-    # }
+    youtube_dl_options = {
+        "format": "bestaudio/best",
+        "outtmpl": "download"
+    }
+    dl = YoutubeDL(youtube_dl_options)
 
-    await ctx.reply("not yet implemented :(")
+    if os.path.exists(os.path.join(current_dir, "download")):
+        os.remove(os.path.join(current_dir, "download"))
+
+    await ctx.reply("downloading...")
+
+    youtube_dl_data = await bot.loop.run_in_executor(None, lambda: dl.extract_info(link))
+    file = dl.prepare_filename(youtube_dl_data)
+    player = nextcord.FFmpegPCMAudio(file, **{ "options": "-vn" }, executable = data.path_to_ffmpeg)
+
+    ctx.voice_client.play(player, after = lambda e: print(f'player error: {e}') if e else None)
 
 with open("TOKEN", "r") as f:
     bot.run(f.readline())

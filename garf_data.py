@@ -11,5 +11,6 @@ class GarfData:
         with open(garf_data_file, "r") as f:
             json_dict = json.loads(f.read())
 
+        self.path_to_ffmpeg = json_dict["pathToFfmpeg"]
         self.jokes = json_dict["jokes"]
         self.trigger_words = json_dict["triggerWords"]
