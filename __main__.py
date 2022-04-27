@@ -58,8 +58,9 @@ async def add(ctx: Context, joke: str):
     data.jokes.append(joke)
 
     json_dict = {
+        "path_to_ffmpeg": data.path_to_ffmpeg,
         "jokes": data.jokes,
-        "triggerWords": data.trigger_words
+        "trigger_words": data.trigger_words
     }
     with open(garf_data_file, "w") as f:
         f.write(json.dumps(json_dict, indent = 4) + "\n")
@@ -75,8 +76,9 @@ async def remove(ctx: Context, joke: str):
     data.jokes.remove(joke)
 
     json_dict = {
+        "path_to_ffmpeg": data.path_to_ffmpeg,
         "jokes": data.jokes,
-        "triggerWords": data.trigger_words
+        "trigger_words": data.trigger_words
     }
     with open(garf_data_file, "w") as f:
         f.write(json.dumps(json_dict, indent = 4) + "\n")
