@@ -18,13 +18,7 @@ if not os.path.exists(token_file):
 elif not os.path.exists(garf_data_file):
     print("garf_data.json file was not found, a new one will be created...")
 
-    json_dict = {
-        "pathToFfmpeg": "",
-        "jokes": [],
-        "triggerWords": []
-    }
-    with open(garf_data_file, "w") as f:
-        f.write(json.dumps(json_dict, indent = 4) + "\n")
+    GarfData.create_new()
 
 bot = commands.Bot(command_prefix = "garf ")
 data = GarfData()
