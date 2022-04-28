@@ -16,7 +16,7 @@ if not os.path.exists(GarfData.file):
 data = GarfData()
 
 bot = commands.Bot(command_prefix = "garf ")
-context = nextcord.ext.commands.context.Context
+context = commands.context.Context
 
 @bot.event
 async def on_ready():
