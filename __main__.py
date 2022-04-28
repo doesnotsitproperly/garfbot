@@ -8,16 +8,16 @@ from util import get_int, get_range, random_number
 from youtube_dl import YoutubeDL
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
-garf_data_file = os.path.join(current_dir, "garf_data.json")
 token_file = os.path.join(current_dir, "TOKEN")
+
+cah_dir = os.path.join(current_dir, "cards_against_humanity")
 
 # Check if files exist
 if not os.path.exists(token_file):
     print("TOKEN file was not found, exiting...")
     sys.exit()
-elif not os.path.exists(garf_data_file):
+elif not os.path.exists(GarfData.file):
     print("garf_data.json file was not found, a new one will be created...")
-
     GarfData.create_new()
 
 bot = commands.Bot(command_prefix = "garf ")
@@ -55,17 +55,13 @@ async def on_message(ctx: Context):
 @bot.command()
 async def add(ctx: Context, joke: str):
     data = GarfData()
+
+    if joke in data.jokes:
+        await ctx.reply("i already know that one!")
+        return
+
     data.jokes.append(joke)
-
-    json_dict = {
-        "path_to_ffmpeg": data.path_to_ffmpeg,
-        "jokes": data.jokes,
-        "trigger_words": data.trigger_words
-    }
-    with open(garf_data_file, "w") as f:
-        f.write(json.dumps(json_dict, indent = 4) + "\n")
-
-    data = GarfData()
+    data.overwrite()
 
     await ctx.reply(f"added joke: \"{joke}\"")
 
@@ -73,17 +69,13 @@ async def add(ctx: Context, joke: str):
 @bot.command()
 async def remove(ctx: Context, joke: str):
     data = GarfData()
+
+    if not joke in data.jokes:
+        await ctx.reply("i don't know what one")
+        return
+
     data.jokes.remove(joke)
-
-    json_dict = {
-        "path_to_ffmpeg": data.path_to_ffmpeg,
-        "jokes": data.jokes,
-        "trigger_words": data.trigger_words
-    }
-    with open(garf_data_file, "w") as f:
-        f.write(json.dumps(json_dict, indent = 4) + "\n")
-
-    data = GarfData()
+    data.overwrite()
 
     await ctx.reply(f"removed joke \"{joke}\"")
 
@@ -121,6 +113,19 @@ async def roll(ctx: Context, arg_1: str, arg_2: str):
         final_message += f" = {final_amount}"
 
     await ctx.reply(final_message)
+
+# @bot.command()
+# async def start_game(ctx: Context, *players: nextcord.User):
+#     with open(os.path.join(cah_dir, "cards.json"), "r") as f:
+#         cards_dict = json.loads(f.read())
+# 
+#     game_file = os.path.join(cah_dir, "game.json")
+# 
+#     game_dict = {
+#         "players": []
+#     }
+#     for player in players:
+#         pass
 
 # Join voice
 @bot.command()
