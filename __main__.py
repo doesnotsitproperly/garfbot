@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-import os, nextcord, sys
-from garf_data import GarfData
+import nextcord, os, random, sys
 from nextcord.ext import commands
-from nextcord.ext.commands.context import Context
-from util import get_int, get_range, random_number
 from youtube_dl import YoutubeDL
+
+from garf_data import GarfData
+from util import *
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 cah_dir = os.path.join(current_dir, "cards_against_humanity")
@@ -16,13 +16,14 @@ if not os.path.exists(GarfData.file):
 data = GarfData()
 
 bot = commands.Bot(command_prefix = "garf ")
+context = nextcord.ext.commands.context.Context
 
 @bot.event
 async def on_ready():
     print("< GARFBOT ACTIVATED >")
 
 @bot.event
-async def on_message(ctx: Context):
+async def on_message(ctx: context):
     msg = ctx.content.lower()
 
     if ctx.author.id == bot.user.id:
@@ -39,7 +40,8 @@ async def on_message(ctx: Context):
     # Say a joke if someone says a trigger word
     data = GarfData()
     if any(trigger_word in msg for trigger_word in data.trigger_words):
-        await ctx.channel.send(data.jokes[random_number(0, len(data.jokes) - 1)])
+        random.seed()
+        await ctx.channel.send(data.jokes[random.randint(ctx.content, 0, index_len(data.jokes))])
 
     await bot.process_commands(ctx)
 
@@ -47,7 +49,7 @@ async def on_message(ctx: Context):
 
 # Add a joke to garf_data
 @bot.command()
-async def add(ctx: Context, joke: str):
+async def add(ctx: context, joke: str):
     data = GarfData()
 
     if joke in data.jokes:
@@ -61,7 +63,7 @@ async def add(ctx: Context, joke: str):
 
 # Remove a joke from garf_data
 @bot.command()
-async def remove(ctx: Context, joke: str):
+async def remove(ctx: context, joke: str):
     data = GarfData()
 
     if not joke in data.jokes:
@@ -75,7 +77,7 @@ async def remove(ctx: Context, joke: str):
 
 # List all jokes from garf_data
 @bot.command()
-async def jokes(ctx: Context):
+async def jokes(ctx: context):
     data = GarfData()
 
     jokes = "```\n"
@@ -87,19 +89,21 @@ async def jokes(ctx: Context):
 
 # Roll some dice
 @bot.command()
-async def roll(ctx: Context, arg_1: str, arg_2: str):
-    amount = get_int(arg_1)
-    dice = get_int(arg_2)
+async def roll(ctx: context, arg_1: str, arg_2: str):
+    amount = int_from_str(arg_1)
+    dice = int_from_str(arg_2)
 
     final_amount = 0
     final_message = "you rolled: "
 
-    first_roll = random_number(1, dice)
+    random.seed()
+    first_roll = random.randint(ctx.content, 1, dice)
     final_amount += first_roll
     final_message += str(first_roll)
 
-    for _ in get_range(2, amount):
-        roll = random_number(1, dice)
+    for _ in inclusive_range(2, amount):
+        random.seed()
+        roll = random.randint(ctx.content, 1, dice)
         final_amount += roll
         final_message += f" + {roll}"
 
@@ -123,7 +127,7 @@ async def roll(ctx: Context, arg_1: str, arg_2: str):
 
 # Join voice
 @bot.command()
-async def join(ctx: Context):
+async def join(ctx: context):
     channel = ctx.author.voice.channel
 
     if channel != None:
@@ -134,13 +138,13 @@ async def join(ctx: Context):
 
 # Leave voice
 @bot.command()
-async def leave(ctx: Context):
+async def leave(ctx: context):
     if ctx.voice_client != None:
         await ctx.voice_client.disconnect()
 
 # Play audio from a YouTube link
 @bot.command()
-async def play(ctx: Context, link: str):
+async def play(ctx: context, link: str):
     if ctx.voice_client == None:
         await ctx.reply("i'm not in a voice channel!")
         return
