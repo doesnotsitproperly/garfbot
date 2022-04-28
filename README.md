@@ -1,6 +1,7 @@
 # GarfBot
 
-A stupid Discord bot I made for my Discord server with [Nextcord](https://github.com/nextcord/nextcord)
+A stupid Discord bot for my Discord server  
+Made with [Nextcord](https://github.com/nextcord/nextcord)
 
 The required `garf_data.json` file should look something like this:
 ```json
@@ -18,5 +19,5 @@ The required `garf_data.json` file should look something like this:
     ]
 }
 ```
-`path_to_ffmpeg` should include the file extension of the FFmpeg executable, and can be downloaded from [the FFmpeg website](https://ffmpeg.org/)  
+`path_to_ffmpeg` should include the file extension of the FFmpeg executable; download info can be found at [the FFmpeg website](https://ffmpeg.org/)  
 It can be left empty (`"path_to_ffmpeg": ""`) if you don't use the `play` command
