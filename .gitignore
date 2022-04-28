@@ -1,4 +1,4 @@
 __pycache__/
 build/
-download
+download*
 garf_data.json
