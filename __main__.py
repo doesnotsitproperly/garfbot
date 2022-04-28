@@ -41,7 +41,7 @@ async def on_message(ctx: context):
     data = GarfData()
     if any(trigger_word in msg for trigger_word in data.trigger_words):
         random.seed()
-        await ctx.channel.send(data.jokes[random.randint(ctx.content, 0, index_len(data.jokes))])
+        await ctx.channel.send(data.jokes[random.randint(0, index_len(data.jokes))])
 
     await bot.process_commands(ctx)
 
@@ -97,13 +97,13 @@ async def roll(ctx: context, arg_1: str, arg_2: str):
     final_message = "you rolled: "
 
     random.seed()
-    first_roll = random.randint(ctx.content, 1, dice)
+    first_roll = random.randint(1, dice)
     final_amount += first_roll
     final_message += str(first_roll)
 
     for _ in inclusive_range(2, amount):
         random.seed()
-        roll = random.randint(ctx.content, 1, dice)
+        roll = random.randint(1, dice)
         final_amount += roll
         final_message += f" + {roll}"
 
