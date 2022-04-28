@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import json, os, nextcord, sys
+import os, nextcord, sys
 from garf_data import GarfData
 from nextcord.ext import commands
 from nextcord.ext.commands.context import Context
@@ -8,20 +8,14 @@ from util import get_int, get_range, random_number
 from youtube_dl import YoutubeDL
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
-token_file = os.path.join(current_dir, "TOKEN")
-
 cah_dir = os.path.join(current_dir, "cards_against_humanity")
 
-# Check if files exist
-if not os.path.exists(token_file):
-    print("TOKEN file was not found, exiting...")
+if not os.path.exists(GarfData.file):
+    print("garf_data.json was not found, exiting...")
     sys.exit()
-elif not os.path.exists(GarfData.file):
-    print("garf_data.json file was not found, a new one will be created...")
-    GarfData.create_new()
+data = GarfData()
 
 bot = commands.Bot(command_prefix = "garf ")
-data = GarfData()
 
 @bot.event
 async def on_ready():
@@ -77,7 +71,7 @@ async def remove(ctx: Context, joke: str):
     data.jokes.remove(joke)
     data.overwrite()
 
-    await ctx.reply(f"removed joke \"{joke}\"")
+    await ctx.reply(f"removed joke: \"{joke}\"")
 
 # List all jokes from garf_data
 @bot.command()
@@ -168,5 +162,4 @@ async def play(ctx: Context, link: str):
 
     ctx.voice_client.play(player, after = lambda e: print(f'player error: {e}') if e else None)
 
-with open("TOKEN", "r") as f:
-    bot.run(f.readline())
+bot.run(data.token)
