@@ -1,6 +1,6 @@
 # GarfBot
 
-A stupid Discord bot for my Discord server made with [Nextcord](https://github.com/nextcord/nextcord)
+A stupid Discord bot I made for my Discord server with [Nextcord](https://github.com/nextcord/nextcord)
 
 The required `garf_data.json` file should look something like this:
 ```json
