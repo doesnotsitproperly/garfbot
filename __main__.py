@@ -50,6 +50,8 @@ async def on_message(ctx: context):
 # Add a joke to garf_data
 @bot.command()
 async def add(ctx: context, joke: str):
+    """Adds a joke to my list"""
+
     data = GarfData()
 
     if joke in data.jokes:
@@ -64,6 +66,8 @@ async def add(ctx: context, joke: str):
 # Remove a joke from garf_data
 @bot.command()
 async def remove(ctx: context, joke: str):
+    """Removes a joke from my list"""
+
     data = GarfData()
 
     if not joke in data.jokes:
@@ -78,6 +82,8 @@ async def remove(ctx: context, joke: str):
 # List all jokes from garf_data
 @bot.command()
 async def jokes(ctx: context):
+    """Lists all my jokes"""
+
     data = GarfData()
 
     jokes = "```\n"
@@ -89,25 +95,27 @@ async def jokes(ctx: context):
 
 # Roll some dice
 @bot.command()
-async def roll(ctx: context, arg_1: str, arg_2: str):
-    amount = int_from_str(arg_1)
-    dice = int_from_str(arg_2)
+async def roll(ctx: context, number: str, size: str):
+    """Rolls (number) (size)-sided dice"""
+
+    number = int_from_str(number)
+    size = int_from_str(size)
 
     final_amount = 0
     final_message = "you rolled: "
 
     random.seed()
-    first_roll = random.randint(1, dice)
+    first_roll = random.randint(1, size)
     final_amount += first_roll
     final_message += str(first_roll)
 
-    for _ in inclusive_range(2, amount):
+    for _ in inclusive_range(2, number):
         random.seed()
-        roll = random.randint(1, dice)
+        roll = random.randint(1, size)
         final_amount += roll
         final_message += f" + {roll}"
 
-    if amount > 1:
+    if number > 1:
         final_message += f" = {final_amount}"
 
     await ctx.reply(final_message)
@@ -128,6 +136,8 @@ async def roll(ctx: context, arg_1: str, arg_2: str):
 # Join voice
 @bot.command()
 async def join(ctx: context):
+    """Makes me join the voice channel you're in"""
+
     channel = ctx.author.voice.channel
 
     if channel != None:
@@ -139,12 +149,16 @@ async def join(ctx: context):
 # Leave voice
 @bot.command()
 async def leave(ctx: context):
+    """Makes me leave the voice channel i'm in"""
+
     if ctx.voice_client != None:
         await ctx.voice_client.disconnect()
 
 # Play audio from a YouTube link
 @bot.command()
 async def play(ctx: context, link: str):
+    """Plays audio from a YouTube link"""
+
     if ctx.voice_client == None:
         await ctx.reply("i'm not in a voice channel!")
         return
