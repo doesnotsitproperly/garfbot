@@ -1,64 +1,87 @@
 {
-    "blackCards": [
+    "comment_1": "RESUME AT PAGE 30",
+    "black_cards": [
         {
             "text": "_____ + _____ = _____.",
             "cards": 3
         },
         {
-            "text": "_____. Betcha can't have just one!",
-            "cards": 1
+            "text": "_____ is a slippery slope that leads to _____.",
+            "cards": 2
+        },
+        {
+            "text": "_____. Betcha can't have just one!"
+        },
+        {
+            "text": "50% of all marriages end in _____."
+        },
+        {
+            "text": "A romantic, candlelit dinner would be incomplete without _____."
         },
         {
             "text": "And the Academy Award for _____ goes to _____.",
             "cards": 2
         },
         {
-            "text": "Dude, do not go in that bathroom. There's _____ in there.",
-            "cards": 1
+            "text": "Daddy, why is mommy crying?"
+        },
+        {
+            "text": "Dude, do not go in that bathroom. There's _____ in there."
         },
         {
             "text": "For my next trick, I will pull _____ out of _____.",
             "cards": 2
         },
         {
-            "text": "Hey Reddit! I'm _____. Ask me anything.",
-            "cards": 1
+            "text": "Fun tip! When your man asks you to go down on him, try surprising him with _____ instead."
         },
         {
-            "text": "How did I lose my virginity?",
-            "cards": 1
+            "text": "Hey Reddit! I'm _____. Ask me anything."
         },
         {
-            "text": "I'm going on a cleanse this week. Nothing but kale juice and _____.",
-            "cards": 1
+            "text": "How did I lose my virginity?"
         },
         {
-            "text": "I'm sorry, Professor, but I couldn't complete my homework because of _____.",
-            "cards": 1
+            "text": "I'm going on a cleanse this week. Nothing but kale juice and _____."
         },
         {
-            "text": "In the new Disney Channel Original Movie, Hannah Montana struggles with _____ for the first time.",
-            "cards": 1
+            "text": "I'm sorry, Professor, but I couldn't complete my homework because of _____."
         },
         {
-            "text": "Introducing X-treme Baseball! It's like baseball, but with _____!",
-            "cards": 1
+            "text": "In the new Disney Channel Original Movie, Hannah Montana struggles with _____ for the first time."
         },
         {
-            "text": "It's a pity that kids these days are all getting involved with _____.",
-            "cards": 1
+            "text": "Introducing X-treme Baseball! It's like baseball, but with _____!"
         },
         {
-            "text": "Kids, I don't need drugs to get high. I'm high on _____.",
-            "cards": 1
+            "text": "Instead of coal, Santa now gives the bad children _____."
         },
         {
-            "text": "Mitch McConnell can't cum without _____.",
-            "cards": 1
+            "text": "It's a pity that kids these days are all getting involved with _____."
         },
         {
-            "text": "Next from J.K. Rowling: Harry Potter and the Chamber of _____.",
-            "cards": 1
+            "text": "Just once, I'd like to hear you say \"Thanks, Mom. Thanks for _____.\""
+        },
+        {
+            "text": "Just saw this upsetting video! Please retweet!! #stop_____"
+        },
+        {
+            "text": "Kids, I don't need drugs to get high. I'm high on _____."
+        },
+        {
+            "text": "Life for American Indians was forever changed when the White Man introduced them to _____."
+        },
+        {
+            "text": "Maybe she's born with it. Maybe it's _____."
+        },
+        {
+            "text": "Mitch McConnell can't cum without _____."
+        },
+        {
+            "text": "My fellow Americans: Before this decade is out, we will have _____ on the moon!"
+        },
+        {
+            "text": "Next from J.K. Rowling: Harry Potter and the Chamber of _____."
         },
         {
             "text": "That's right, I killed _____. How, you ask? _____.",
@@ -69,20 +92,45 @@
             "cards": 2
         },
         {
-            "text": "TSA guidelines now prohibit _____ on airplanes.",
-            "cards": 1
+            "text": "The class field trip was completely ruined by _____."
         },
         {
-            "text": "What is Batman's guilty pleasure?",
-            "cards": 1
+            "text": "This season at Steppenwolf, Samuel Beckett's classic existential play: Waiting for _____."
         },
         {
-            "text": "What's my secret power?",
-            "cards": 1
+            "text": "TSA guidelines now prohibit _____ on airplanes."
+        },
+        {
+            "text": "What is Batman's guilty pleasure?"
+        },
+        {
+            "text": "What is George W. Bush thinking about right now?"
+        },
+        {
+            "text": "What's a girl's best friend?"
+        },
+        {
+            "text": "What's my secret power?"
+        },
+        {
+            "text": "What's Teach for America using to inspire inner city students to succeed?"
+        },
+        {
+            "text": "When I was tripping on acid, _____ turned into _____.",
+            "cards": 2
+        },
+        {
+            "text": "When Pharaoh remained unmoved, Moses called down a Plague of _____."
+        },
+        {
+            "text": "White people like _____."
+        },
+        {
+            "text": "Why do I hurt all over?"
         }
     ],
-    "whiteCards": [
-        "RESUME AT PG. 9",
+    "comment_2": "RESUME AT PAGE 9",
+    "white_cards": [
         "50,000 volts straight to the nipples.",
         "A certain je ne sais quoi.",
         "A crucifixion.",
