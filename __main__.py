@@ -7,7 +7,7 @@ from youtube_dl import YoutubeDL
 from garf_data import GarfData
 from util import *
 
-current_dir = os.path.dirname(os.path.realpath(__file__))
+current_dir = os.getcwd()
 cah_dir = os.path.join(current_dir, "cards_against_humanity")
 
 if not os.path.exists(GarfData.file):
@@ -67,7 +67,7 @@ async def remove(ctx: context, joke: str):
     data = GarfData()
 
     if not joke in data.jokes:
-        await ctx.reply("i don't know what one")
+        await ctx.reply("i don't know that one")
         return
 
     data.jokes.remove(joke)
@@ -147,6 +147,10 @@ async def leave(ctx: context):
 async def play(ctx: context, link: str):
     if ctx.voice_client == None:
         await ctx.reply("i'm not in a voice channel!")
+        return
+
+    if data.path_to_ffmpeg == "":
+        await ctx.reply("you need to set my `path_to_ffmpeg` to use `play`")
         return
 
     youtube_dl_options = {

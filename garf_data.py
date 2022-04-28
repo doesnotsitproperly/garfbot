@@ -1,12 +1,7 @@
 import json, os
 
 class GarfData:
-    file = os.path.join(
-        os.path.dirname(
-            os.path.realpath(__file__)
-        ),
-        "garf_data.json"
-    )
+    file = os.path.join(os.getcwd(), "garf_data.json")
 
     def __init__(self):
         with open(self.file, "r") as f:
