@@ -1,7 +1,7 @@
 import json, os
 
 class GarfData:
-    garf_data_file = os.path.join(
+    file = os.path.join(
         os.path.dirname(
             os.path.realpath(__file__)
         ),
@@ -9,7 +9,7 @@ class GarfData:
     )
 
     def __init__(self):
-        with open(self.garf_data_file, "r") as f:
+        with open(self.file, "r") as f:
             json_dict = json.loads(f.read())
 
         self.path_to_ffmpeg = json_dict["path_to_ffmpeg"]
@@ -22,7 +22,7 @@ class GarfData:
             "jokes": [],
             "trigger_words": []
         }
-        with open(self.garf_data_file, "w") as f:
+        with open(self.file, "w") as f:
             f.write(json.dumps(json_dict, indent = 4) + "\n")
 
     def overwrite(self):
@@ -31,5 +31,5 @@ class GarfData:
             "jokes": self.jokes,
             "trigger_words": self.trigger_words
         }
-        with open(self.garf_data_file, "w") as f:
+        with open(self.file, "w") as f:
             f.write(json.dumps(json_dict, indent = 4) + "\n")
