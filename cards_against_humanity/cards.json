@@ -1,17 +1,6 @@
 {
-    "comment_1": "RESUME AT PAGE 30",
+    "comment_1": "RESUME AT PAGE 31",
     "black_cards": [
-        {
-            "text": "_____ + _____ = _____.",
-            "cards": 3
-        },
-        {
-            "text": "_____ is a slippery slope that leads to _____.",
-            "cards": 2
-        },
-        {
-            "text": "_____. Betcha can't have just one!"
-        },
         {
             "text": "50% of all marriages end in _____."
         },
@@ -26,7 +15,13 @@
             "text": "Daddy, why is mommy crying?"
         },
         {
+            "text": "Dear Abby, I'm having some trouble with _____ and would like your advice."
+        },
+        {
             "text": "Dude, do not go in that bathroom. There's _____ in there."
+        },
+        {
+            "text": "During sex, I like to think about _____."
         },
         {
             "text": "For my next trick, I will pull _____ out of _____.",
@@ -39,7 +34,20 @@
             "text": "Hey Reddit! I'm _____. Ask me anything."
         },
         {
+            "text": "Hey guys, welcome to Chili's! Would you like to start the night off right with _____?"
+        },
+        {
             "text": "How did I lose my virginity?"
+        },
+        {
+            "text": "Hulu's new reality show features twelve hot singles living with _____."
+        },
+        {
+            "text": "I got 99 problems but _____ ain't one."
+        },
+        {
+            "text": "I never truly understood _____ until I encountered _____.",
+            "cards": 2
         },
         {
             "text": "I'm going on a cleanse this week. Nothing but kale juice and _____."
@@ -48,13 +56,20 @@
             "text": "I'm sorry, Professor, but I couldn't complete my homework because of _____."
         },
         {
+            "text": "IF you like _____, YOU MIGHT BE A REDNECK."
+        },
+        {
+            "text": "In Jordan Peele's new thriller, a young family discovers _____ had really been _____ all along.",
+            "cards": 2
+        },
+        {
             "text": "In the new Disney Channel Original Movie, Hannah Montana struggles with _____ for the first time."
         },
         {
-            "text": "Introducing X-treme Baseball! It's like baseball, but with _____!"
+            "text": "Instead of coal, Santa now gives the bad children _____."
         },
         {
-            "text": "Instead of coal, Santa now gives the bad children _____."
+            "text": "Introducing X-treme Baseball! It's like baseball, but with _____!"
         },
         {
             "text": "It's a pity that kids these days are all getting involved with _____."
@@ -72,6 +87,10 @@
             "text": "Life for American Indians was forever changed when the White Man introduced them to _____."
         },
         {
+            "text": "Make a haiku.",
+            "cards": 3
+        },
+        {
             "text": "Maybe she's born with it. Maybe it's _____."
         },
         {
@@ -84,11 +103,14 @@
             "text": "Next from J.K. Rowling: Harry Potter and the Chamber of _____."
         },
         {
-            "text": "That's right, I killed _____. How, you ask? _____.",
+            "text": "Step 1: _____. Step 2: _____. Step 3: Profit.",
             "cards": 2
         },
         {
-            "text": "Step 1: _____. Step 2: _____. Step 3: Profit.",
+            "text": "TSA guidelines now prohibit _____ on airplanes."
+        },
+        {
+            "text": "That's right, I killed _____. How, you ask? _____.",
             "cards": 2
         },
         {
@@ -98,7 +120,13 @@
             "text": "This season at Steppenwolf, Samuel Beckett's classic existential play: Waiting for _____."
         },
         {
-            "text": "TSA guidelines now prohibit _____ on airplanes."
+            "text": "Uh, hey guys, I know this was my idea, but I'm having serious doubts about _____."
+        },
+        {
+            "text": "What are my parents hiding from me?"
+        },
+        {
+            "text": "What ended my last relationship?"
         },
         {
             "text": "What is Batman's guilty pleasure?"
@@ -107,13 +135,28 @@
             "text": "What is George W. Bush thinking about right now?"
         },
         {
+            "text": "What made my first kiss so awkward?"
+        },
+        {
+            "text": "What never fails to liven up the party?"
+        },
+        {
+            "text": "What would grandma find disturbing, yet oddly charming?"
+        },
+        {
+            "text": "What's Teach for America using to inspire inner city students to succeed?"
+        },
+        {
             "text": "What's a girl's best friend?"
         },
         {
             "text": "What's my secret power?"
         },
         {
-            "text": "What's Teach for America using to inspire inner city students to succeed?"
+            "text": "What's that sound?"
+        },
+        {
+            "text": "When I am President, I will create the Department of _____."
         },
         {
             "text": "When I was tripping on acid, _____ turned into _____.",
@@ -126,7 +169,27 @@
             "text": "White people like _____."
         },
         {
+            "text": "Why am I sticky?"
+        },
+        {
             "text": "Why do I hurt all over?"
+        },
+        {
+            "text": "_____ + _____ = _____.",
+            "cards": 3
+        },
+        {
+            "text": "_____ is a slippery slope that leads to _____.",
+            "cards": 2
+        },
+        {
+            "text": "_____. Betcha can't have just one!"
+        },
+        {
+            "text": "_____. It's a trap!"
+        },
+        {
+            "text": "_____. That was so metal."
         }
     ],
     "comment_2": "RESUME AT PAGE 9",
@@ -144,6 +207,7 @@
         "A positive attitude!",
         "A sorry excuse for a father.",
         "A three-way with my wife and Shaquille O'Neal.",
+        "AXE Body Spray.",
         "Agriculture.",
         "Alcoholism.",
         "Alexandria Ocasio-Cortez.",
@@ -154,19 +218,18 @@
         "An old guy who's almost dead.",
         "Assaulting a police officer.",
         "Authentic Mexican cuisine.",
-        "AXE Body Spray.",
+        "BATMAN!",
         "Bananas.",
         "Barely making $25,000 a year.",
-        "BATMAN!",
         "Being on fire.",
         "Being rich.",
         "Birth control.",
         "Boneless buffalo wings.",
         "Boogers.",
         "Boomers.",
+        "COVID-19.",
         "Complaining.",
         "Covering myself with Parmesan cheese and chili flakes because I am pizza.",
-        "COVID-19.",
         "Crippling debt.",
         "Da clurb.",
         "Daddy issues.",
@@ -233,14 +296,14 @@
         "Switching to Geico.®",
         "Swooping.",
         "Teenage pregnancy.",
-        "The arrival of the pizza.",
         "The Blood of Christ.",
         "The Confederate flag.",
-        "The cool, refreshing taste of Pepsi.®",
         "The Hamburglar.",
         "The Holy Bible.",
-        "The illusion of choice in a late-stage capitalist society.",
         "The Jews.",
+        "The arrival of the pizza.",
+        "The cool, refreshing taste of Pepsi.®",
+        "The illusion of choice in a late-stage capitalist society.",
         "The miracle of childbirth.",
         "The only gay person in a hundred miles.",
         "The past.",
