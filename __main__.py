@@ -26,7 +26,7 @@ async def on_ready():
 async def on_message(ctx: context):
     msg = ctx.content.lower()
 
-    if ctx.author.id == bot.user.id:
+    if ctx.author.id is bot.user.id:
         return
 
     # React with :eyes: if someone mentions lasagna
@@ -140,8 +140,8 @@ async def join(ctx: context):
 
     channel = ctx.author.voice.channel
 
-    if channel != None:
-        if ctx.voice_client != None:
+    if channel is not None:
+        if ctx.voice_client is not None:
             await ctx.voice_client.move_to(channel)
         else:
             await channel.connect()
@@ -151,7 +151,7 @@ async def join(ctx: context):
 async def leave(ctx: context):
     """Makes me leave the voice channel i'm in"""
 
-    if ctx.voice_client != None:
+    if ctx.voice_client is not None:
         await ctx.voice_client.disconnect()
 
 # Play audio from a YouTube link
@@ -159,11 +159,11 @@ async def leave(ctx: context):
 async def play(ctx: context, link: str):
     """Plays audio from a YouTube link"""
 
-    if ctx.voice_client == None:
+    if ctx.voice_client is None:
         await ctx.reply("i'm not in a voice channel!")
         return
 
-    if data.path_to_ffmpeg == "":
+    if data.path_to_ffmpeg is "":
         await ctx.reply("you need to set my `path_to_ffmpeg` to use `play`")
         return
 
