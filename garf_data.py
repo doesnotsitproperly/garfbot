@@ -3,6 +3,11 @@ import json, os
 class GarfData:
     file = os.path.join(os.getcwd(), "garf_data.json")
 
+    token: str
+    path_to_ffmpeg: str
+    jokes: list
+    trigger_words: list
+
     def __init__(self):
         with open(self.file, "r") as f:
             json_dict = json.loads(f.read())

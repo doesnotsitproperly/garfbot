@@ -24,7 +24,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(ctx: context):
-    msg = ctx.content.lower()
+    msg = str(ctx.content).lower()
 
     if ctx.author.id == bot.user.id:
         return
@@ -37,11 +37,17 @@ async def on_message(ctx: context):
     if "monday" in msg:
         await ctx.add_reaction("😡")
 
+    if msg.startswith("garfbot") and msg.endswith("?"):
+        with open(os.path.join(cah_dir, "cards.jsonc")) as f:
+            cards_dict = jsonc_loads(f.read())
+        white_cards = cards_dict["white_cards"]
+        random.seed() ; card = white_cards[random.randint(0, index_len(white_cards))]
+        await ctx.reply(card)
+
     # Say a joke if someone says a trigger word
     data = GarfData()
     if any(trigger_word in msg for trigger_word in data.trigger_words):
-        random.seed()
-        await ctx.channel.send(data.jokes[random.randint(0, index_len(data.jokes))])
+        random.seed() ; await ctx.channel.send(data.jokes[random.randint(0, index_len(data.jokes))])
 
     await bot.process_commands(ctx)
 
@@ -98,20 +104,18 @@ async def jokes(ctx: context):
 async def roll(ctx: context, number: str, size: str):
     """Rolls (number) (size)-sided dice"""
 
-    number = int_from_str(number)
-    size = int_from_str(size)
+    number: int = int_from_str(number)
+    size: int = int_from_str(size)
 
     final_amount = 0
     final_message = "you rolled: "
 
-    random.seed()
-    first_roll = random.randint(1, size)
+    random.seed() ; first_roll = random.randint(1, size)
     final_amount += first_roll
     final_message += str(first_roll)
 
     for _ in inclusive_range(2, number):
-        random.seed()
-        roll = random.randint(1, size)
+        random.seed() ; roll = random.randint(1, size)
         final_amount += roll
         final_message += f" + {roll}"
 
@@ -206,8 +210,7 @@ async def start_game(ctx: context, chance: int = 15, *players: nextcord.User):
             if random.random() < chance:
                 white_card = "(FILLABLE)"
             else:
-                random.seed()
-                white_card = game_dict["white_cards_in_play"][random.randint(0, index_len(game_dict["white_cards_in_play"]))]
+                random.seed() ; white_card = game_dict["white_cards_in_play"][random.randint(0, index_len(game_dict["white_cards_in_play"]))]
                 game_dict["white_cards_in_play"].remove(white_card)
             player_dict["cards"].append(white_card)
         game_dict["players"].append(player_dict)
