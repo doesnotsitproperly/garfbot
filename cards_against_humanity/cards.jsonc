@@ -1,15 +1,44 @@
 {
-    // Resume at page 31
     "black_cards": [
         {
             "text": "50% of all marriages end in _____."
         },
         {
+            "text": "A recent laboratory study shows that undergraduates have 50% less sex after being exposed to _____."
+        },
+        {
             "text": "A romantic, candlelit dinner would be incomplete without _____."
+        },
+        {
+            "text": "After four platinum albums and three Grammys, it's time to get back to my roots, to what inspired me to make music in the first place: _____."
+        },
+        {
+            "text": "Alternative medicine is now embracing the curative powers of _____."
         },
         {
             "text": "And the Academy Award for _____ goes to _____.",
             "cards": 2
+        },
+        {
+            "text": "Arby's: We Have _____."
+        },
+        {
+            "text": "As the mom of five rambunctious boys, I'm no stranger to _____."
+        },
+        {
+            "text": "Brought to you by Bud Light®, the Official Beer of _____."
+        },
+        {
+            "text": "But before I kill you, Mr. Bond, I must show you _____."
+        },
+        {
+            "text": "Check me out, yo! I call this dance move \"_____.\""
+        },
+        {
+            "text": "Click Here for _____!!!"
+        },
+        {
+            "text": "Coming to Broadway this season, _____: The Musical."
         },
         {
             "text": "Daddy, why is mommy crying?"
@@ -31,6 +60,9 @@
             "text": "Fun tip! When your man asks you to go down on him, try surprising him with _____ instead."
         },
         {
+            "text": "Here is the church / Here is the steeple / Open the doors / And there is _____."
+        },
+        {
             "text": "Hey Reddit! I'm _____. Ask me anything."
         },
         {
@@ -43,6 +75,12 @@
             "text": "Hulu's new reality show features twelve hot singles living with _____."
         },
         {
+            "text": "I drink to forget _____."
+        },
+        {
+            "text": "I get by with a little help from _____."
+        },
+        {
             "text": "I got 99 problems but _____ ain't one."
         },
         {
@@ -50,13 +88,22 @@
             "cards": 2
         },
         {
+            "text": "I'm LeBron James, and when I'm not slamming dunks, I love _____."
+        },
+        {
             "text": "I'm going on a cleanse this week. Nothing but kale juice and _____."
+        },
+        {
+            "text": "I'm no doctor, but I'm pretty sure what you're suffering from is called \"_____.\""
         },
         {
             "text": "I'm sorry, Professor, but I couldn't complete my homework because of _____."
         },
         {
             "text": "IF you like _____, YOU MIGHT BE A REDNECK."
+        },
+        {
+            "text": "If you can't be with the one you love, love _____."
         },
         {
             "text": "In Jordan Peele's new thriller, a young family discovers _____ had really been _____ all along.",
@@ -70,6 +117,10 @@
         },
         {
             "text": "Introducing X-treme Baseball! It's like baseball, but with _____!"
+        },
+        {
+            "text": "Introducing the amazing superhero/sidekick duo! It's _____ and _____!",
+            "cards": 2
         },
         {
             "text": "It's a pity that kids these days are all getting involved with _____."
@@ -87,6 +138,10 @@
             "text": "Life for American Indians was forever changed when the White Man introduced them to _____."
         },
         {
+            "text": "Lifetime® presents \"_____: the Story of _____.\"",
+            "cards": 2
+        },
+        {
             "text": "Make a haiku.",
             "cards": 3
         },
@@ -94,13 +149,28 @@
             "text": "Maybe she's born with it. Maybe it's _____."
         },
         {
+            "text": "Men's Wearhouse: You're gonna like _____. I guarantee it."
+        },
+        {
+            "text": "Military historians remember Alexander the Great for his brilliant use of _____ against the Persians."
+        },
+        {
             "text": "Mitch McConnell can't cum without _____."
+        },
+        {
+            "text": "Mr. and Mrs. Diaz, we called you in because we're concerned about Cynthia. Are you aware that your daughter is _____?"
         },
         {
             "text": "My fellow Americans: Before this decade is out, we will have _____ on the moon!"
         },
         {
             "text": "Next from J.K. Rowling: Harry Potter and the Chamber of _____."
+        },
+        {
+            "text": "Next on ESPN2: The World Series of _____."
+        },
+        {
+            "text": "Old MacDonald had _____. E-I-E-I-O."
         },
         {
             "text": "Step 1: _____. Step 2: _____. Step 3: Profit.",
@@ -117,16 +187,38 @@
             "text": "The class field trip was completely ruined by _____."
         },
         {
+            "text": "The new Chevy Tahoe. With the power and space to take _____ everywhere you go."
+        },
+        {
+            "text": "They said we were crazy. They said we couldn't put _____ inside of _____. They were wrong.",
+            "cards": 2
+        },
+        {
+            "text": "This is the way the world ends / This is the way the world ends / Not with a bang but with _____."
+        },
+        {
             "text": "This season at Steppenwolf, Samuel Beckett's classic existential play: Waiting for _____."
         },
         {
+            "text": "Today on Maury: \"Help! My son is _____!\""
+        },
+        {
             "text": "Uh, hey guys, I know this was my idea, but I'm having serious doubts about _____."
+        },
+        {
+            "text": "War! What is it good for?"
+        },
+        {
+            "text": "Well if you'll excuse me, gentlemen, I have a date with _____."
         },
         {
             "text": "What are my parents hiding from me?"
         },
         {
             "text": "What ended my last relationship?"
+        },
+        {
+            "text": "What gives me uncontrollable gas?"
         },
         {
             "text": "What is Batman's guilty pleasure?"
@@ -138,7 +230,13 @@
             "text": "What made my first kiss so awkward?"
         },
         {
+            "text": "What makes life worth living?"
+        },
+        {
             "text": "What never fails to liven up the party?"
+        },
+        {
+            "text": "What will always get you laid?"
         },
         {
             "text": "What would grandma find disturbing, yet oddly charming?"
@@ -153,10 +251,19 @@
             "text": "What's my secret power?"
         },
         {
+            "text": "What's that smell?"
+        },
+        {
             "text": "What's that sound?"
         },
         {
+            "text": "What's there a ton of in heaven?"
+        },
+        {
             "text": "When I am President, I will create the Department of _____."
+        },
+        {
+            "text": "When I am a billionaire, I shall erect a 50-foot statue to commemorate _____."
         },
         {
             "text": "When I was tripping on acid, _____ turned into _____.",
@@ -172,7 +279,13 @@
             "text": "Why am I sticky?"
         },
         {
+            "text": "Why can't I sleep at night?"
+        },
+        {
             "text": "Why do I hurt all over?"
+        },
+        {
+            "text": "Why is Brett so sweaty?"
         },
         {
             "text": "_____ + _____ = _____.",
@@ -186,13 +299,22 @@
             "text": "_____. Betcha can't have just one!"
         },
         {
+            "text": "_____. High five, bro."
+        },
+        {
             "text": "_____. It's a trap!"
         },
         {
             "text": "_____. That was so metal."
+        },
+        {
+            "text": "_____: kid-tested, mother-approved."
+        },
+        {
+            "text": "★✩✩✩✩ Do NOT go here! Found _____ in my fettuccine alfredo!"
         }
     ],
-    // Resume at page 9
+    // Resume at page 10
     "white_cards": [
         "50,000 volts straight to the nipples.",
         "A certain je ne sais quoi.",
@@ -201,7 +323,9 @@
         "A good sniff.",
         "A homoerotic volleyball montage.",
         "A live studio audience.",
+        "A loser like you.",
         "A middle-aged man on roller skates.",
+        "A mistake.",
         "A much younger woman.",
         "A narc.",
         "A positive attitude!",
@@ -228,6 +352,7 @@
         "Boogers.",
         "Boomers.",
         "COVID-19.",
+        "Committing suicide.",
         "Complaining.",
         "Covering myself with Parmesan cheese and chili flakes because I am pizza.",
         "Crippling debt.",
@@ -235,12 +360,18 @@
         "Daddy issues.",
         "Dead birds everywhere.",
         "Doing crimes.",
+        "Doing white people shit with a bunch of white people.",
         "Donald J. Trump.",
         "Dropping a hot doodie out of my turd hole.",
+        "Eating a hard boiled egg out of my husband's asshole.",
         "Emerging from the sea and rampaging through Tokyo.",
+        "Explaining the difference between sex and gender.",
+        "Feeding strawberries to my manslut.",
         "Flightless birds.",
         "Floating down the Hudson River with the other garbage.",
         "Former President George W. Bush.",
+        "Free samples",
+        "Fucking all my dad's friends.",
         "Full frontal nudity.",
         "Gandhi.",
         "German dungeon porn.",
@@ -254,9 +385,13 @@
         "Holding a pepper grinder for some reason.",
         "Hot Asian men.",
         "Hot cheese.",
+        "Hurting those closest to me.",
         "Irritable bowel syndrome.",
+        "Kamala Harris.",
         "Kanye West.",
         "Kissing grandma on the forehead and turning off her life support.",
+        "Lactation.",
+        "Laughing over champagne flutes while the poor freeze to death outside.",
         "Laying an egg.",
         "Looking in the mirror, applying lipstick, and whispering \"tonight, you will have sex with Tom Cruise.\"",
         "Magnets.",
@@ -270,10 +405,12 @@
         "Nasty shit, like real sick stuff.",
         "Natural selection.",
         "Not reciprocating oral sex.",
+        "One titty hanging out.",
         "Oprah.",
         "Passive-aggressive Post-it notes.",
         "Peeing a little bit.",
         "Permanent Orgasm-Face Disorder.",
+        "Poverty.",
         "Powerful thighs.",
         "Prescription pain killers.",
         "Pretending to care.",
@@ -287,11 +424,13 @@
         "Self-loathing.",
         "Seven dead and three in critical condition.",
         "Shame.",
+        "Shutting up so I can watch the game.",
         "Silence.",
         "Sitting on my face and telling me I'm garbage.",
         "Smegma.",
         "Sniffing and kissing my feet.",
         "Soft, kissy missionary sex.",
+        "Squirting.",
         "Stuffing my peehole with Tic Tacs.",
         "Switching to Geico.®",
         "Swooping.",
@@ -301,6 +440,8 @@
         "The Hamburglar.",
         "The Holy Bible.",
         "The Jews.",
+        "The Kool-Aid Man.",
+        "The Three-Fifths Compromise.",
         "The arrival of the pizza.",
         "The cool, refreshing taste of Pepsi.®",
         "The illusion of choice in a late-stage capitalist society.",
@@ -311,6 +452,7 @@
         "Website.",
         "Wet dreams.",
         "White privilege.",
+        "Wizard music.",
         "Wondering if it's possible to get some of that salsa to go.",
         "Working in an Amazon warehouse.",
         "Your weird brother."
