@@ -1,4 +1,5 @@
 __pycache__/
 build/
+cards_against_humanity/game.json
 download*
 garf_data.json
