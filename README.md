@@ -9,7 +9,7 @@ The required `garf_data.json` file should look something like this:
 ```json
 {
     "token": "ABC123",
-    "path_to_ffmpeg": "path/to/ffmpeg", // On Windows: "path\\to\\ffmpeg.exe"
+    "path_to_ffmpeg": "path/to/ffmpeg",
     "jokes": [
         "what's the deal with airline food?",
         "your mom!"
