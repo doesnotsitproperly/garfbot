@@ -5,7 +5,7 @@ from nextcord.ext import commands
 from youtube_dl import YoutubeDL
 
 from garf_data import GarfData
-from util import inclusive_range, index_len, int_from_str, jsonc_loads
+from util import *
 
 current_dir = os.getcwd()
 cah_dir = os.path.join(current_dir, "cards_against_humanity")
@@ -38,8 +38,8 @@ async def on_message(ctx: context):
         await ctx.add_reaction("😡")
 
     if msg.startswith("garfbot") and msg.endswith("?"):
-        with open(os.path.join(cah_dir, "cards.jsonc")) as f:
-            cards_dict = jsonc_loads(f.read())
+        with open(os.path.join(cah_dir, "cards.json")) as f:
+            cards_dict = json.loads(f.read())
         white_cards = cards_dict["white_cards"]
         random.seed() ; card = white_cards[random.randint(0, index_len(white_cards))]
         await ctx.reply(card)
@@ -188,8 +188,8 @@ async def start_game(ctx: context, chance: int = 15, *players: nextcord.User):
 
     await ctx.channel.send("Cards Against Humanity is made by Cards Against Humanity LLC; learn more at https://www.cardsagainsthumanity.com/")
 
-    with open(os.path.join(cah_dir, "cards.jsonc"), "r") as f:
-        cards_dict = jsonc_loads(f.read())
+    with open(os.path.join(cah_dir, "cards.json"), "r") as f:
+        cards_dict = json.loads(f.read())
 
     game_file = os.path.join(cah_dir, "game.json")
     if os.path.exists(game_file):
