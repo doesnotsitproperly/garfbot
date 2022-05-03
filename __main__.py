@@ -213,6 +213,7 @@ async def start_game(ctx: context, chance: int = 15, *players: nextcord.User):
                 random.seed() ; white_card = game_dict["white_cards_in_play"][random.randint(0, index_len(game_dict["white_cards_in_play"]))]
                 game_dict["white_cards_in_play"].remove(white_card)
             player_dict["cards"].append(white_card)
+        player_dict["cards"].sort()
         game_dict["players"].append(player_dict)
 
         player_message = "```"
