@@ -23,7 +23,7 @@ with open(os.path.join(build_dir, "garf_data.json"), "r") as f:
     data = json.loads(f.read())
     data["path_to_ffmpeg"] = ""
 with open(os.path.join(build_dir, "garf_data.json"), "w") as f:
-    f.write(json.dumps(data, indent = 4) + "\n")
+    f.write(json.dumps(data, indent = 4) + os.linesep)
 
 shutil.copy(os.path.join(current_dir, "__main__.py"), garfbot_dir)
 shutil.copy(os.path.join(current_dir, "garf_data.py"), garfbot_dir)

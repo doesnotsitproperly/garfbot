@@ -25,4 +25,4 @@ class GarfData:
             "trigger_words": self.trigger_words
         }
         with open(self.file, "w") as f:
-            f.write(json.dumps(json_dict, indent = 4) + "\n")
+            f.write(json.dumps(json_dict, indent = 4) + os.linesep)

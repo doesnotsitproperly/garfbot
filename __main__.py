@@ -92,9 +92,9 @@ async def jokes(ctx: context):
 
     data = GarfData()
 
-    jokes = "```\n"
+    jokes = f"```{os.linesep}"
     for joke in data.jokes:
-        jokes += f"{joke}\n"
+        jokes += f"{joke}{os.linesep}"
     jokes += "```"
 
     await ctx.reply(jokes)
@@ -186,7 +186,7 @@ async def start_game(ctx: context, chance: int = 15, *players: nextcord.User):
     elif chance > 1:
         chance = 1
 
-    await ctx.channel.send("Cards Against Humanity is made by Cards Against Humanity LLC; learn more at https://www.cardsagainsthumanity.com/")
+    await ctx.channel.send("Cards Against Humanity is made by Cards Against Humanity LLC; learn more at https://www.cardsagainsthumanity.com/" + os.linesep + "this feature isn't fully implemented yet")
 
     with open(os.path.join(cah_dir, "cards.json"), "r") as f:
         cards_dict = json.loads(f.read())
@@ -218,14 +218,12 @@ async def start_game(ctx: context, chance: int = 15, *players: nextcord.User):
         player_message = "```"
         for i in inclusive_range(0, index_len(player_dict["cards"])):
             card = player_dict["cards"][i]
-            player_message += f"{i} {card}\n"
+            player_message += f"{i} {card}{os.linesep}"
         player_message += "```"
         await player.send(player_message)
 
     with open(game_file, "w") as f:
-        f.write(json.dumps(game_dict, indent = 4) + "\n")
-
-    await ctx.reply("this feature isn't fully implemented yet")
+        f.write(json.dumps(game_dict, indent = 4) + os.linesep)
 
     # random.seed() ; czar = bot.get_user(game_dict["players"][random.randint(0, index_len(game_dict["players"]))]["id"])
     # random.seed() ; black_card = game_dict["black_cards_in_play"][random.randint(0, index_len(game_dict["black_cards_in_play"]))]
